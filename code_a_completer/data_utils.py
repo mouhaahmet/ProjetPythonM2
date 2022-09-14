@@ -1,4 +1,9 @@
+import sys
+
+import numpy
 import numpy as np
+from os import listdir
+import pandas as pd
 
 
 def load_data(filename):
@@ -20,8 +25,24 @@ def load_data(filename):
 
     """
     # TODO À compléter (à la place de l'instruction pass ci-dessous)
-    pass
 
+    #recuperer tous les fichiers qui sont dans notre répertoire et qui se termine par npy
+    fichier=[file for file in listdir(filename) if file.endswith(".npy")]
+
+    #Verifier le nombre de fichier npy que nous disposons , il doit en avoir 3
+    if (len(fichier)!=3):
+        raise ValueError("Le nombre de parametre doit etre egale à 3")
+
+    #Charger les données
+    try:
+        X_labeled = np.load(filename+"/X_labeled.npy")
+        X_unlabeled = np.load(filename+"/X_unlabeled.npy")
+        y_labeled = np.load(filename+"/y_labeled.npy")
+    except OSError:
+        print("Could not open/read file:")
+        sys.exit()
+
+    return X_labeled,y_labeled,X_unlabeled
 
 def randomize_data(X, y):
     """
