@@ -73,6 +73,13 @@ def randomize_data(X, y):
                          'elements in y'
                          .format(X.shape[0], y.shape[0]))
     # TODO À compléter
+    Xy = np.column_stack((X, y))
+    Xy_permut = numpy.random.permutation(Xy)
+    X_r = Xy_permut[:, :-1]
+    y_r = Xy_permut[:, -1]
+
+    return X_r,y_r
+
 
 
 def split_data(X, y, ratio):
