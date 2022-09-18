@@ -113,3 +113,14 @@ def split_data(X, y, ratio):
 
     """
     # TODO À compléter (à la place de l'instruction pass ci-dessous)
+    X_r, y_r = randomize_data(X, y)
+    Xy_r =  np.column_stack((X_r, y_r))
+    X1y1_r = Xy_r[:int(ratio*len(Xy_r))]
+    X2y2_r = Xy_r[int(ratio*len(Xy_r)):]
+
+    X1 = X1y1_r[:, :-1]
+    y1 = X1y1_r[:, -1]
+    X2 = X2y2_r[:, :-1]
+    y2 = X2y2_r[:, -1]
+
+    return X1,y1,X2,y2

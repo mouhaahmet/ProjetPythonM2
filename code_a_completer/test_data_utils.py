@@ -91,7 +91,6 @@ class TestRandomizeData(unittest.TestCase):
         X = np.random.permutation(n_examples*data_dim)
         X = X.reshape(n_examples, data_dim)
         y = np.random.permutation(n_examples) * 10
-
         Xr, yr = randomize_data(X, y)
 
         # Test dimensions
