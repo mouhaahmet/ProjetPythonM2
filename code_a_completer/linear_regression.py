@@ -87,6 +87,11 @@ class LinearRegressionLeastSquares(LinearRegression):
         LinearRegression.fit(self, X, y)
 
         # TODO À compléter
+        X_tild = np.column_stack((X, np.ones(len(X))))
+        w_tild = np.linalg.pinv(X_tild)*y
+        w = w_tild[:-1]
+        b = w_tild[-1]
+        return w, b
 
 
 class LinearRegressionMean(LinearRegression):
@@ -111,6 +116,9 @@ class LinearRegressionMean(LinearRegression):
         LinearRegression.fit(self, X, y)
 
         # TODO À compléter
+        w = np.zeros(X.shape[1])
+        b = np.mean(y)
+        return w, b
 
 
 class LinearRegressionMedian(LinearRegression):
@@ -135,6 +143,9 @@ class LinearRegressionMedian(LinearRegression):
         LinearRegression.fit(self, X, y)
 
         # TODO À compléter
+        w = np.zeros(X.shape[1])
+        b = np.median(y)
+        return w, b
 
 
 class LinearRegressionMajority(LinearRegression):
