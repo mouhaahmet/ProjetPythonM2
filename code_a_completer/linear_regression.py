@@ -87,12 +87,16 @@ class LinearRegressionLeastSquares(LinearRegression):
         LinearRegression.fit(self, X, y)
 
         # TODO À compléter
-        X_tild = np.column_stack((X, np.ones(len(X))))
-        w_tild = np.linalg.pinv(X_tild)*y
+        X_tild = np.hstack([X, np.ones((X.shape[0], 1))])
+        X_pinv = np.linalg.pinv(X_tild)
+
+        # Compute the dot product of Xpinv and y using np.dot
+        w_tild = np.dot(X_pinv, y)
         w = w_tild[:-1]
         b = w_tild[-1]
-        return w, b
 
+        self.w=w
+        self.b=b
 
 class LinearRegressionMean(LinearRegression):
     """
@@ -118,7 +122,8 @@ class LinearRegressionMean(LinearRegression):
         # TODO À compléter
         w = np.zeros(X.shape[1])
         b = np.mean(y)
-        return w, b
+        self.w = w
+        self.b = b
 
 
 class LinearRegressionMedian(LinearRegression):
@@ -145,7 +150,8 @@ class LinearRegressionMedian(LinearRegression):
         # TODO À compléter
         w = np.zeros(X.shape[1])
         b = np.median(y)
-        return w, b
+        self.w = w
+        self.b = b
 
 
 class LinearRegressionMajority(LinearRegression):
@@ -171,6 +177,12 @@ class LinearRegressionMajority(LinearRegression):
         h, bins = np.histogram(y, bins=np.arange(np.min(y), np.max(y) + 2))
 
         # TODO À compléter
+        w = np.zeros(X.shape[1])
+        b, a = np.histogram(y,bins=np.arange(np.min(y), np.max(y) + 2))
+        b = a[np.argmax(b)]
+        self.w = w
+        self.b = b
+
 
 
 class LinearRegressionRidge(LinearRegression):
@@ -204,6 +216,21 @@ class LinearRegressionRidge(LinearRegression):
         LinearRegression.fit(self, X, y)
 
         # TODO À compléter
+        b = sum(y) / len(y)
+
+        # Pré-traitement des données
+        y_centered = y - b
+        X_normalized, alpha = normalize_dictionary(X)
+
+        # Appliquer l'algorithme MP, OMP ou ridge
+        w_tilde = ridge_regression(X_normalized, y_centered, self.lambda_ridge)
+
+        # Post-traitement du résultat
+        #w = [w_tilde[m]/alpha[m] for m in range(X.shape[1])]
+        w = np.array([w_tilde[m] / alpha[m] for m in range(X.shape[1])])
+
+        self.w = w
+        self.b = b
 
 
 class LinearRegressionMp(LinearRegression):

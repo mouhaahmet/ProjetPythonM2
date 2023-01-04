@@ -13,7 +13,10 @@ from data_utils import load_data
 export the figure to the image file hist_train.png
 """
 # TODO À compléter
-X_labeled,y_labeled,X_unlabeled=load_data('/home/lamine/Master2/ProgrammationPython/ProjetPythonM2/code_a_completer/data/YearPredictionMSD_100')
+# X_labeled,y_labeled,X_unlabeled=load_data('/data/YearPredictionMSD_100')
+
+X_labeled,y_labeled,X_unlabeled=load_data('data/YearPredictionMSD_100')
+
 #plot de l'histogramme
 plt.hist(y_labeled)
 plt.xlabel('Years')
@@ -32,4 +35,4 @@ print (result)
 
 
 
-plt.hist(y_labeled_int)
+plt.hist(y_labeled)

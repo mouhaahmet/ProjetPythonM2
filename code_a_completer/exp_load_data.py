@@ -7,7 +7,7 @@ in the first and last places and at random locations.
 """
 # TODO À compléter
 
-X_labeled,y_labeled,X_unlabeled=load_data('/home/lamine/Master2/ProgrammationPython/ProjetPythonM2/code_a_completer/data/YearPredictionMSD_100')
+X_labeled,y_labeled,X_unlabeled=load_data('data/YearPredictionMSD_100')
 for i in (X_labeled,y_labeled,X_unlabeled):
     print("type:"+str(type(i)))
     print("nombre de dimension:"+str(i.ndim))

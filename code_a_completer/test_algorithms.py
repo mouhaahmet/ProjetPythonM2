@@ -9,6 +9,7 @@ import unittest
 import numpy as np
 
 from algorithms import normalize_dictionary, mp, omp, ridge_regression
+from linear_regression import LinearRegressionRidge
 
 
 class TestNormalizeDictionary(unittest.TestCase):
@@ -198,6 +199,28 @@ class TestMp(unittest.TestCase):
         np.testing.assert_array_less(-eps, error_norm)
 
 
+class TestMatchingPursuit(unittest.TestCase):
+    def test_error_norm_decreases(self):
+        # Générer une matrice de dictionnaire aléatoire
+        X = np.random.rand(100, 50)
+        # Normaliser les colonnes de la matrice de dictionnaire
+        X /= np.linalg.norm(X, axis=0)
+        # Générer un vecteur de poids aléatoire
+        w = np.random.rand(50)
+        # Générer un signal observé à partir de la matrice de dictionnaire et du vecteur de poids
+        y = np.dot(X, w)
+
+        # Exécuter l'algorithme de Matching Pursuit avec un nombre fixe d'itérations
+        w_hat, error_norm = mp(X, y, 10)
+
+        # Vérifier que la norme d'erreur décroit au cours des itérations
+        self.assertTrue(np.all(np.diff(error_norm) < 0))
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+
 class TestOmp(unittest.TestCase):
     def test_with_identity_dictionary(self):
         """ Test with particular case: X=identity matrix """
@@ -309,3 +332,25 @@ class TestOmp(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TestLinearRegressionRidge(unittest.TestCase):
+    def test_fit(self):
+        # Initialize a LinearRegressionRidge model
+        model = LinearRegressionRidge(lambda_ridge=2)
+
+        # Generate synthetic training data
+        X = np.random.rand(100, 20)
+        w_true = np.random.rand(20)
+        y = X.dot(w_true) + np.random.randn(100)
+
+        # Fit the model on the training data
+        w = model.fit(X, y)
+
+        # Check that the shape of w is correct
+        #self.assertEqual(w.shape, (20,))
+        np.testing.assert_array_equal(w.shape, (20,))
+
+        # Check that the model has learned a good approximation of w_true
+        #self.assertLess(np.linalg.norm(w - w_true), 1e-2)
+        np.testing.assert_array_less(np.linalg.norm(w - w_true), 1e-2)
