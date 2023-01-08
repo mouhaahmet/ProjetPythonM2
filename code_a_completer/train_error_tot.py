@@ -31,12 +31,15 @@ for j, methode in enumerate(methode_constant):
     difftime = []
     valid_errore = []
     for i, size in enumerate(N):
-        start_time = time.perf_counter()
         # Sélectionner les données d'entraînement , les donnees de validation restent les memes
         X_train = X0_train[:size]
         Y_train = Y0_train[:size]
         # Appliquer le modèle de régression linéaire aux données d'entraînement
+
+        start_time = time.perf_counter()
         model.fit(X_train, Y_train)
+        end_time = time.perf_counter()
+        difftime.append(end_time - start_time)
 
         # Prédire les étiquettes de validation à l'aide du modèle entraîné
 
@@ -52,8 +55,6 @@ for j, methode in enumerate(methode_constant):
 
         # Mettre à jour la valeur dans la matrice avec l'erreur d'entraînement
         train_errore.append(train_error_temp)
-        end_time = time.perf_counter()
-        difftime.append(end_time - start_time)
 
     # print(train_errore)
     train_error.append(train_errore)

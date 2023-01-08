@@ -6,6 +6,7 @@
 """
 import numpy as np
 from algorithms import mp, omp, ridge_regression, normalize_dictionary
+from data_utils import split_data
 
 
 class LinearRegression:
@@ -20,6 +21,7 @@ class LinearRegression:
     ``predict`` implemented in :class:`LinearRegression` will be inherited
     without needed to be reimplemented.
     """
+
     def __init__(self):
         self.w = None
         self.b = None
@@ -70,6 +72,7 @@ class LinearRegressionLeastSquares(LinearRegression):
     """
     Linear regression using a least-squares method
     """
+
     def __init__(self):
         LinearRegression.__init__(self)
 
@@ -95,14 +98,16 @@ class LinearRegressionLeastSquares(LinearRegression):
         w = w_tild[:-1]
         b = w_tild[-1]
 
-        self.w=w
-        self.b=b
+        self.w = w
+        self.b = b
+
 
 class LinearRegressionMean(LinearRegression):
     """
     Constant-valued regression function equal to the mean of the training
     labels
     """
+
     def __init__(self):
         LinearRegression.__init__(self)
 
@@ -131,6 +136,7 @@ class LinearRegressionMedian(LinearRegression):
     Constant-valued regression function equal to the median of the training
     labels
     """
+
     def __init__(self):
         LinearRegression.__init__(self)
 
@@ -158,6 +164,7 @@ class LinearRegressionMajority(LinearRegression):
     """
     Constant-valued regression function equal to the majority training label
     """
+
     def __init__(self):
         LinearRegression.__init__(self)
 
@@ -178,11 +185,10 @@ class LinearRegressionMajority(LinearRegression):
 
         # TODO À compléter
         w = np.zeros(X.shape[1])
-        b, a = np.histogram(y,bins=np.arange(np.min(y), np.max(y) + 2))
+        b, a = np.histogram(y, bins=np.arange(np.min(y), np.max(y) + 2))
         b = a[np.argmax(b)]
         self.w = w
         self.b = b
-
 
 
 class LinearRegressionRidge(LinearRegression):
@@ -194,6 +200,7 @@ class LinearRegressionRidge(LinearRegression):
     lambda_ridge : float
         Non-negative penalty coefficient
     """
+
     def __init__(self, lambda_ridge):
         LinearRegression.__init__(self)
         self.lambda_ridge = lambda_ridge
@@ -226,7 +233,7 @@ class LinearRegressionRidge(LinearRegression):
         w_tilde = ridge_regression(X_normalized, y_centered, self.lambda_ridge)
 
         # Post-traitement du résultat
-        #w = [w_tilde[m]/alpha[m] for m in range(X.shape[1])]
+        # w = [w_tilde[m]/alpha[m] for m in range(X.shape[1])]
         w = np.array([w_tilde[m] / alpha[m] for m in range(X.shape[1])])
 
         self.w = w
@@ -242,6 +249,7 @@ class LinearRegressionMp(LinearRegression):
     n_iter : int
         Number of iterations
     """
+
     def __init__(self, n_iter):
         LinearRegression.__init__(self)
         self.n_iter = n_iter
@@ -265,7 +273,19 @@ class LinearRegressionMp(LinearRegression):
         LinearRegression.fit(self, X, y)
 
         # TODO À compléter
+        b = sum(y) / len(y)
 
+        # Pré-traitement des données
+        y_centered = y - b
+        X_normalized, alpha = normalize_dictionary(X)
+
+        # Appliquer l'algorithme MP, OMP ou ridge
+        w_tilde, error_norm = mp(X_normalized, y_centered, self.n_iter)
+
+        w = np.array([w_tilde[m] / alpha[m] for m in range(X.shape[1])])
+
+        self.w = w
+        self.b = b
 
 class LinearRegressionOmp(LinearRegression):
     """
@@ -276,6 +296,7 @@ class LinearRegressionOmp(LinearRegression):
     n_iter : int
         Number of iterations
     """
+
     def __init__(self, n_iter):
         LinearRegression.__init__(self)
         self.n_iter = n_iter
@@ -299,3 +320,20 @@ class LinearRegressionOmp(LinearRegression):
         LinearRegression.fit(self, X, y)
 
         # TODO À compléter
+        b = sum(y) / len(y)
+
+        # Pré-traitement des données
+        y_centered = y - b
+        X_normalized, alpha = normalize_dictionary(X)
+
+        # Appliquer l'algorithme  OMP
+        w_tilde, error_norm = omp(X_normalized, y_centered, self.n_iter)
+
+        # Post-traitement du résultat
+        # w = [w_tilde[m]/alpha[m] for m in range(X.shape[1])]
+        w = np.array([w_tilde[m] / alpha[m] for m in range(X.shape[1])])
+
+        self.w = w
+        self.b = b
+
+
