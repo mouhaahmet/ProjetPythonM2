@@ -4,7 +4,8 @@ from data_utils import load_data, split_data, randomize_data
 from linear_regression import LinearRegressionRidge
 
 # Séparation des données en un ensemble d'apprentissage et un ensemble de validation
-X, y = load_data('data/YearPredictionMSD_100')[0:2]
+X, y = load_data('YearPredictionMSD_100.npz')[0:2]
+
 X_labeled = X[:500]
 y_labeled = y[:500]
 X0_train, y0_train, X0_valid, y0_valid = split_data(X_labeled, y_labeled, 2 / 3)
@@ -34,6 +35,6 @@ plt.plot(lambdas, val_errors, label="Erreur sur l'ensemble de validation")
 plt.xlabel("Valeur de lambda")
 plt.ylabel("Erreur")
 plt.legend()
-plt.savefig('Erreur_lambdas')
+plt.savefig('SortieFigure/Erreur_lambdas')
 plt.show()
 

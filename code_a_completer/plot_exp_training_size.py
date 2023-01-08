@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Charger les résultats de l'expérience depuis le fichier .npz
-results = np.load('/home/baba/ProjetPythonM2/code_a_completer/ErrorAndTime.npz',allow_pickle=True)
-res_regul = np.load('/home/baba/ProjetPythonM2/code_a_completer/ErrorAndTime_Regularized.npz',allow_pickle=True)
+results = np.load('Error/ErrorAndTime.npz',allow_pickle=True)
+res_regul = np.load('Error/ErrorAndTime_Regularized.npz',allow_pickle=True)
 
 results.keys()
 valid_errors = results['valid_error']
@@ -40,7 +40,7 @@ ax.legend()
 
 # Save the figure to a .png file
 #La premiere figure est enregistree dans performance.png
-plt.savefig('performance.png')
+plt.savefig('SortieFigure/performance.png')
 plt.show()
 
 
@@ -68,7 +68,7 @@ plt.xlabel('Training set size')
 plt.ylabel('Computation time (seconds)')
 
 # Save the figure to a .png file
-plt.savefig('computation_times.png')
+plt.savefig('SortieFigure/computation_times.png')
 
 # Show the plot
 plt.show()
@@ -94,7 +94,7 @@ ax.legend()
 
 # Save the figure to a .png file
 #La premiere figure est enregistree dans performance.png
-plt.savefig('performance_regul.png')
+plt.savefig('SortieFigure/performance_regul.png')
 plt.show()
 
 # Plot the computation times for each method
@@ -118,7 +118,7 @@ plt.xlabel('Training set size')
 plt.ylabel('Computation time (seconds)')
 
 # Save the figure to a .png file
-plt.savefig('computation_times_regul.png')
+plt.savefig('SortieFigure/computation_times_regul.png')
 
 # Show the plot
 plt.show()

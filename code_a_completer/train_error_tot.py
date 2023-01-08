@@ -7,7 +7,7 @@ import numpy as np
 import time
 
 # Charger les données et séparer en données d'entraînement et de validation
-X_labeled, y_labeled = load_data('data/YearPredictionMSD_100')[0:2]
+X_labeled, y_labeled = load_data('YearPredictionMSD_100.npz')[0:2]
 X0_train, Y0_train, X0_valid, Y0_valid = split_data(X_labeled, y_labeled, 2 / 3)
 # Créer la liste de tailles de données d'entraînement à tester
 N = [2 ** p for p in range(5, 11 + 1)]
@@ -70,7 +70,7 @@ for j, methode in enumerate(methode_constant):
 valid_error = pd.DataFrame(data=np.array(valid_error),
                            index=met)
 valid_error = valid_error.T
-print(valid_error)
+#print(valid_error)
 
 
 train_error = pd.DataFrame(data=np.array(train_error),
@@ -86,5 +86,5 @@ learning_time = learning_time.T
 # print(learning_time)
 
 
-np.savez(f'ErrorAndTime.npz', valid_error=valid_error, train_error=train_error, learning_time=learning_time, N=N,
+np.savez(f'Error/ErrorAndTime.npz', valid_error=valid_error, train_error=train_error, learning_time=learning_time, N=N,
          methode=met)

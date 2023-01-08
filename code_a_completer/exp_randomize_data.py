@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Oct  5 16:03:05 2017
-
 @author: Valentin Emiya, AMU & CNRS LIF
 """
 import numpy as np

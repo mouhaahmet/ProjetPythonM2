@@ -15,7 +15,7 @@ from data_utils import load_data, randomize_data, split_data
 class TestLoadData(unittest.TestCase):
     # Nom du fichier défini comme un attribut accessible dans toutes les
     # méthodes
-    filename = 'data/YearPredictionMSD_100.npz'
+    filename = '/YearPredictionMSD_100.npz'
 
     def test_data_shape(self):
         # Valeurs de référence
@@ -82,7 +82,6 @@ class TestLoadData(unittest.TestCase):
             x=Xu[-1, :2], y=Xu_last_row_first2c, decimal=6,
             err_msg="Wrong values in Xu (last row, first 2 columns).")
         # TODO À compléter
-
 
 class TestRandomizeData(unittest.TestCase):
     def test_randomize_data(self):

@@ -15,24 +15,12 @@ export the figure to the image file hist_train.png
 # TODO À compléter
 # X_labeled,y_labeled,X_unlabeled=load_data('/data/YearPredictionMSD_100')
 
-X_labeled,y_labeled,X_unlabeled=load_data('data/YearPredictionMSD_100')
+X_labeled,y_labeled,X_unlabeled=load_data('YearPredictionMSD_100.npz')
 
 #plot de l'histogramme
 plt.hist(y_labeled)
 plt.xlabel('Years')
 plt.ylabel('frequence')
-plt.savefig('hist_year.png')
+plt.savefig('SortieFigure/hist_year.png')
 plt.show()
 
-
-""""
-y_labeled_int =  y_labeled.astype(int)
-unique, counts = np.unique(y_labeled_int, return_counts=True)
-result = np.column_stack((unique, counts))
-print (result)
-"""""
-
-
-
-
-plt.hist(y_labeled)

@@ -11,7 +11,7 @@ import time
 #LinearRegressionLeastSquares
 
 # Charger les données et séparer en données d'entraînement et de validation
-X_labeled, y_labeled = load_data('data/YearPredictionMSD_100')[0:2]
+X_labeled, y_labeled = load_data('YearPredictionMSD_100.npz')[0:2]
 X0_train, Y0_train, X0_valid, Y0_valid = split_data(X_labeled, y_labeled, 2/3)
 # Créer la liste de tailles de données d'entraînement à tester
 N = [2**p for p in range(5, 11+1)]
