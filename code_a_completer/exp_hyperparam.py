@@ -10,7 +10,7 @@ X_labeled = X[:500]
 y_labeled = y[:500]
 X0_train, y0_train, X0_valid, y0_valid = split_data(X_labeled, y_labeled, 2 / 3)
 # Définition de l'ensemble de valeurs à tester pour l'hyperparamètre de régression d'arrête (coefficient de pénalisation lambda)
-lambdas = np.logspace(-4, 4, 9)
+lambdas = np.logspace(0, 3, 9)
 
 # Tableaux pour stocker les erreurs sur l'ensemble d'apprentissage et sur l'ensemble de validation
 train_errors = []

@@ -41,39 +41,6 @@ def load_data(filename):
 
     return X_labeled,y_labeled,X_unlabeled
 
-def randomize_data(X, y):
-    """
-    Randomly permute the examples in the labeled set (X, y), i.e. the rows
-    of X and the elements of y, simultaneously.
-    Parameters
-    ----------
-    X : np.ndarray [n, d]
-        Array of n feature vectors with size d
-    y : np.ndarray [n]
-        Vector of n labels related to the n feature vectors
-    Returns
-    -------
-    Xr : np.ndarray [n, d]
-        Permuted version of X
-    yr : np.ndarray [n]
-        Permuted version of y
-    Raises
-    ------
-    ValueError
-        If the number of rows in X differs from the number of elements in y.
-    """
-    if X.shape[0] != y.shape[0]:
-        raise ValueError('Number of rows in X ({}) differs from the number of '
-                         'elements in y'
-                         .format(X.shape[0], y.shape[0]))
-    # TODO À compléter
-    Xy = np.column_stack((X, y))
-    Xy_permut = numpy.random.permutation(Xy)
-    X_r = Xy_permut[:, :-1]
-    y_r = Xy_permut[:, -1]
-
-    return X_r,y_r
-
 # Randomly permute the examples in the labeled set (X, y)
 def randomize_data(X, y):
     """
